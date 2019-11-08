@@ -5,7 +5,7 @@
 //  Copyright © 2019 Serrazes. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import StoreKit
 import SystemConfiguration
 
@@ -97,15 +97,13 @@ open class RateKit {
             SKStoreReviewController.requestReview()
             setAppLaunchSchedule(date: Calendar.current.date(byAdding: .month, value: 3, to: Date())!)
             incrementAppRatings()
-            
         }
     }
     
-    public func displayRatingsPrompt(title: String, text: String, cancel: String, submit: String) {
+    public func displayRatingsPrompt(on view: UIViewController, title: String, text: String, cancel: String, submit: String) {
         guard let appId = appId else { return }
         
         let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
-        
         alert.addAction(UIAlertAction(title: cancel, style: .default, handler: { (action) -> Void in
             self.setAppLaunchSchedule(date: Calendar.current.date(byAdding: .day, value: 7, to: Date())!)
         }))
@@ -118,8 +116,7 @@ open class RateKit {
                 self.incrementAppRatings()
             })
         }))
-        
-        self.application.windows[0].rootViewController?.present(alert, animated: true, completion: nil)
+        //self.application.windows[0].rootViewController?.present(alert, animated: true, completion: nil)
+        view.present(alert, animated: true)
     }
 }
-
