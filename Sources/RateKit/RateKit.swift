@@ -17,8 +17,6 @@ open class RateKit {
     private let kAppNextRatingDate  = "InstallDate"
     private let kAppMaxRatingCount  = 3
     
-    
-    
     private var application: UIApplication!
     private var appId: String?
     private var appCurrentVersion: String?
@@ -101,22 +99,31 @@ open class RateKit {
     }
     
     public func displayRatingsPrompt(on view: UIViewController, title: String, text: String, cancel: String, submit: String) {
-        guard let appId = appId else { return }
-        
         let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: cancel, style: .default, handler: { (action) -> Void in
             self.setAppLaunchSchedule(date: Calendar.current.date(byAdding: .day, value: 7, to: Date())!)
         }))
         
         alert.addAction(UIAlertAction(title: submit, style: .default, handler: { (action) -> Void in
-            let url = "itms-apps://itunes.apple.com/app/id\(appId)?action=write-review"
-            print(url)
-            UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: { (success) in
-                self.setAppLaunchSchedule(date: Calendar.current.date(byAdding: .month, value: 3, to: Date())!)
-                self.incrementAppRatings()
-            })
+            self.displayRatingsPage()
         }))
         //self.application.windows[0].rootViewController?.present(alert, animated: true, completion: nil)
         view.present(alert, animated: true)
     }
+    
+    public func displayRatingsPage() {
+        guard let appId = appId else { return }
+        let url = "itms-apps://itunes.apple.com/app/id\(appId)?action=write-review"
+        UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: { (success) in
+            if success {
+                self.setAppLaunchSchedule(date: Calendar.current.date(byAdding: .month, value: 3, to: Date())!)
+                self.incrementAppRatings()
+                NotificationCenter.default.post(name: .ratingsPageOpened, object: self)
+            }
+        })
+    }
+}
+
+extension Notification.Name {
+    public static let ratingsPageOpened = Notification.Name("RatingsPageOpened")
 }
