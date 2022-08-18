@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "RateKit",
     platforms: [
-        .iOS("12.0"),
+        .macOS(.v10_15),
+        .iOS(.v12),
     ],
     products: [
         .library(name: "RateKit", targets: ["RateKit"]),
