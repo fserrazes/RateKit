@@ -30,7 +30,7 @@ public class RateKit {
     
     private func incrementAppLaunches() {
         var launches = userDefaults.integer(forKey: kAppLaunches)
-        launches = launches + 1
+        launches += 1
         set(value: launches, forKey: kAppLaunches)
     }
     
@@ -64,26 +64,12 @@ public class RateKit {
     
     // MARK: Rating process
     
-    public func displayRatingsIfRequired(isWrittenReview: Bool = false) {
+    public func displayRatingsIfRequired() {
         let launches = getAppLaunchCount()
         
         if launches >= launchesBeforeRating {
             SKStoreReviewController.requestReview()
         }
-    }
-    
-    @available(*, deprecated, message: "This will be removed in v1.0; please migrate to a displayRatingIfRequired.")
-    public func displayRatingsPrompt(on view: UIViewController, title: String, text: String, cancel: String, submit: String) {
-        let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: cancel, style: .default, handler: { (action) -> Void in
-//            self.setAppLaunchSchedule(date: Calendar.current.date(byAdding: .day, value: 7, to: Date())!)
-        }))
-        
-        alert.addAction(UIAlertAction(title: submit, style: .default, handler: { (action) -> Void in
-            self.displayRatingsPage("")
-        }))
-        //self.application.windows[0].rootViewController?.present(alert, animated: true, completion: nil)
-        view.present(alert, animated: true)
     }
     
     public func displayRatingsPage(appId: String) {
