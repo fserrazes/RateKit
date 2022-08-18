@@ -8,7 +8,7 @@
 import StoreKit
 import SystemConfiguration
 
-open class RateKit {
+public class RateKit {
     private var userDefaults = UserDefaults()
     private let kAppCurrentVersion  = "Version"
     private let kAppLaunches        = "Launches"
@@ -70,6 +70,13 @@ open class RateKit {
     
     private func setAppLaunchSchedule(date: Date) {
         set(value: date, forKey: kAppNextRatingDate)
+    }
+    
+    public static func getAppCurrentVersion() {
+        guard let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
+            return
+        }
+        print(currentAppVersion)
     }
     
     fileprivate func reset() {
