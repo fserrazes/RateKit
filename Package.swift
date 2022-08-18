@@ -13,7 +13,6 @@ let package = Package(
         .library(name: "RateKit", targets: ["RateKit"]),
     ],
     targets: [
-        .target(name: "RateKit", dependencies: [], path: "Sources"),
-        .testTarget(name: "RateKitTests", dependencies: ["RateKit"]),
+        .target(name: "RateKit", dependencies: [], path: "Sources")
     ]
 )
