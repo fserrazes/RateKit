@@ -72,6 +72,13 @@ open class RateKit {
         set(value: date, forKey: kAppNextRatingDate)
     }
     
+    private static func getAppCurrentVersion() {
+        guard let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
+            return
+        }
+        print(currentAppVersion)
+    }
+    
     fileprivate func reset() {
         set(value: 0, forKey: kAppLaunches)
         set(value: 0, forKey: kAppRatingCount)
