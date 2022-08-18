@@ -1,11 +1,10 @@
 //
 //  RateKit.swift
 //
-//  Created by Flavio Silvano Serrazes on 01.05.19.
+//  Created by Flavio Serrazes on 01.05.19.
 //  Copyright © 2019 Serrazes. All rights reserved.
 //
 
-import UIKit
 import StoreKit
 import SystemConfiguration
 
@@ -86,7 +85,7 @@ open class RateKit {
     
     // MARK: Rating process
     
-    public func displayRatingsPromptIfRequired(isWrittenReview: Bool = false) {
+    public func displayRatingsIfRequired(isWrittenReview: Bool = false) {
         let launches = getAppLaunchCount()
         let ratings = getAppRatingCount()
         let schedule = getAppLaunchSchedule()
@@ -98,6 +97,7 @@ open class RateKit {
         }
     }
     
+    @available(*, deprecated, message: "This will be removed in v1.0; please migrate to a displayRatingIfRequired.")
     public func displayRatingsPrompt(on view: UIViewController, title: String, text: String, cancel: String, submit: String) {
         let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: cancel, style: .default, handler: { (action) -> Void in
