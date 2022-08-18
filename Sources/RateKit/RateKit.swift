@@ -15,7 +15,6 @@ public class RateKit {
     
     private var application: UIApplication!
     private var appId: String?
-    private var appCurrentVersion: String?
     private var launchesBeforeRating: Int = 5
     
     // MARK: Lifecycle
@@ -24,7 +23,7 @@ public class RateKit {
     
     public func setup(application: UIApplication, appId: String, appCurrentVersion: String, launchesBeforeRating: Int) {
         self.appId = appId
-        self.appCurrentVersion = appCurrentVersion
+        
         self.launchesBeforeRating = launchesBeforeRating
         self.application = application
         
@@ -48,11 +47,23 @@ public class RateKit {
         set(value: launches, forKey: kAppLaunches)
     }
     
-    public static func getAppCurrentVersion() {
-        guard let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
+    private func getAppCurrentVersion() {
+        let infoDictionaryKey = kCFBundleVersionKey as String
+        
+        guard let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
+            let appBuild = Bundle.main.object(forInfoDictionaryKey: infoDictionaryKey) as? String else {
+            print("Expected to find a bundle version in the info dictionary")
             return
         }
-        print(currentAppVersion)
+        
+        let appCurrentVersion = "\(appVersion).\(appBuild)"
+        if appCurrentVersion != userDefaults.string(forKey: kAppCurrentVersion) {
+            set(value: appCurrentVersion, forKey: kAppCurrentVersion)
+            reset()
+        }
+        incrementAppLaunches()
+        
+        print("version: \(appVersion) build \(appBuild)\n")
     }
     
     fileprivate func reset() {
