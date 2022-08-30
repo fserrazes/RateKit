@@ -13,30 +13,14 @@ This utility by default will not immediatly call for an app review, instead it k
 Default (will prompt after the app lauches this 5 times)
 
 ```
-    RateKit().displayRatingsIfRequired()
+    RateKit.displayRatingsIfRequired()
 ```
 
 If you want to have a different threshold
 
 ```
-    let review = RateKit(launchesBeforeRating: 3)
-    review.displayRatingsIfRequired()
+    RateKit.displayRatingsIfRequired(launchesBeforeRating: 3)
 
-```
-If you want to open a write/review page. 
-
-```
-    RateKit().displayRatingsPage()
-```
-
-After the write/review page is opened a notification is sent
-
-```
-    NotificationCenter.default.addObserver(self, selector: #selector(reviewPageOpened), name: .ratingsPageOpened, object: nil)
-    
-    @objc func reviewPageOpened(_ notification: Notification) {
-        //... code process
-    }
 ```
 
 # Recommended placement
@@ -47,6 +31,6 @@ Recommended placement is in the AppDelegate.swift file in the didFinishLaunching
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //... other startup stuff
         
-    RateKit().displayRatingsIfRequired()
+    RateKit.displayRatingsIfRequired()
 }
 ```
