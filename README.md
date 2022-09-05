@@ -1,8 +1,13 @@
 # RateKit
 
-[![Swift 5](https://img.shields.io/badge/language-Swift-orange.svg)](https://swift.org)
-[![macOS](https://img.shields.io/badge/OS-macOS-green.svg)](https://developer.apple.com/macos/)
-[![iOS](https://img.shields.io/badge/OS-iOS-green.svg)](https://developer.apple.com/ios/)
+<p>
+    <img src="https://github.com/fserrazes/RateKit/actions/workflows/CI.yml/badge.svg" />
+    <a href="https://github.com/apple/swift-package-manager">
+      <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" />
+    </a>
+    <img src="https://img.shields.io/badge/iOS-12.0+-orange.svg" />
+    <img src="https://img.shields.io/badge/macOs-10.15+-orange.svg" />
+</p>
 
 RateKit is a simple utility to prompt the users of your iOS or macOS apps to submit a review after a certain number of runs.
 
@@ -12,13 +17,13 @@ This utility by default will not immediatly call for an app review, instead it k
 
 Default (will prompt after the app lauches this 5 times)
 
-```
+```swift
     RateKit.displayRatingsIfRequired()
 ```
 
 If you want to have a different threshold
 
-```
+```swift
     RateKit.displayRatingsIfRequired(launchesBeforeRating: 3)
 
 ```
@@ -27,7 +32,7 @@ If you want to have a different threshold
 
 Recommended placement is in the AppDelegate.swift file in the didFinishLaunchingWithOptions function. That way it's guaranteed to check once per app launch.
 
-```
+```swift
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //... other startup stuff
         
