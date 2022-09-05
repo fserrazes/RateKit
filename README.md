@@ -13,7 +13,24 @@ RateKit is a simple utility to prompt the users of your iOS or macOS apps to sub
 
 This utility by default will not immediatly call for an app review, instead it keeps track until a minimum threshold of calls is hit before prompting the user for a review. It will also only request one review for each app version that is released.
 
-# How to use
+# Requirements
+
+The latest version of GameKitUI requires:
+
+    - Swift 5+
+    - Xcode 13+
+    - macOS 10.15+
+    - iOS 12+
+
+# Installation
+
+## Swift Package Manager
+
+Using SPM add the following to your dependencies
+
+'RateKit', 'main', 'https://github.com/fserrazes/RateKit.git'
+
+# How to use? 
 
 Default (will prompt after the app lauches this 5 times)
 
