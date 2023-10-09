@@ -9,9 +9,9 @@
     <img src="https://img.shields.io/badge/macOs-10.15+-orange.svg" />
 </p>
 
-RateKit is a simple utility to prompt the users of your iOS or macOS apps to submit a review after a certain number of runs.
+RateKit is a straightforward utility designed to encourage users of your iOS or macOS apps to submit reviews after a specific number of app launches.
 
-This utility by default will not immediatly call for an app review, instead it keeps track until a minimum threshold of calls is hit before prompting the user for a review. It will also only request one review for each app version that is released.
+By default, this utility won't immediately request an app review. Instead, it monitors the app's usage until it reaches a minimum threshold of launches before prompting the user for a review. Additionally, it ensures that new review request will be made only after specified number of days have passed since the last review request.
 
 # Requirements
 
@@ -32,7 +32,7 @@ Using SPM add the following to your dependencies
 
 # How to use? 
 
-Default (will prompt after the app lauches this 5 times)
+Default (will prompt after the app launches 5 times, the secound try will be made after 30 days)
 
 ```swift
     RateKit.displayRatingsIfRequired()
@@ -41,8 +41,10 @@ Default (will prompt after the app lauches this 5 times)
 If you want to have a different threshold
 
 ```swift
-    RateKit.displayRatingsIfRequired(launchesBeforeRating: 3)
-
+    RateKit.displayRatingsIfRequired(
+        launchesBeforeAskingForReview: 3,
+        minTimeBetweenRequestsInDays: 90
+    )
 ```
 
 # Recommended placement
