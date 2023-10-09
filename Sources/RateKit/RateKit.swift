@@ -38,7 +38,7 @@ extension RateKit {
         let lastReviewRequested = checkLastReviewRequested()
         let minTimeInterval = TimeInterval(delayInDays * 24 * 60 * 60)
         
-        debugPrint("Number of launches \(launches) since \(Date().timeIntervalSince(lastReviewRequested))")
+        debugPrint("Number of launches \(launches) since \(lastReviewRequested)")
         return launches >= minLaunches && Date().timeIntervalSince(lastReviewRequested) > minTimeInterval
     }
     
@@ -55,7 +55,7 @@ extension RateKit {
     }
     
     private static func setLastReviewRequested() {
-        set(value: Date(), forKey: kLastReviewRequestedKey)
+        set(value: Date().timeIntervalSince1970, forKey: kLastReviewRequestedKey)
     }
     
     private static func checkAppCurrentVersion() {
