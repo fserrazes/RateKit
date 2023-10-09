@@ -21,7 +21,7 @@ public struct RateKit {
     /// - Returns: The current app version.
     @discardableResult
     public static func displayRatingsIfRequired(launchesBeforeAskingForReview: Int = 5, minTimeBetweenRequestsInDays: Int = 30) -> String? {
-        if canAskForRating(minLaunches: launchesBeforeAskingForReview, delayInDays: minTimeBetweenRequestsInDays) {
+        if canRequestReview(minLaunches: launchesBeforeAskingForReview, delayInDays: minTimeBetweenRequestsInDays) {
             SKStoreReviewController.requestReview()
             setLastReviewRequested()
         }
@@ -32,7 +32,7 @@ public struct RateKit {
 // MARK: - Helper methods
 
 extension RateKit {
-    private static func canAskForRating(minLaunches: Int, delayInDays: Int) -> Bool {
+    private static func canRequestReview(minLaunches: Int, delayInDays: Int) -> Bool {
         checkAppCurrentVersion()
         let launches = incrementLaunches()
         let lastReviewRequested = checkLastReviewRequested()
