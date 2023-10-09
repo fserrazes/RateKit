@@ -18,8 +18,7 @@ public struct RateKit {
     /// - Returns: App version + build
     @discardableResult
     public static func displayRatingsIfRequired(launchesBeforeRating: Int = 5) -> String? {
-        incrementLaunches()
-        let launches = launchCount()
+        let launches = incrementLaunches()
 
         if launches >= launchesBeforeRating {
             SKStoreReviewController.requestReview()
@@ -32,15 +31,12 @@ public struct RateKit {
 // MARK: - Helper methods
 
 extension RateKit {
-    private static func launchCount() -> Int {
+    private static func incrementLaunches() -> Int {
         checkAppCurrentVersion()
-        return userDefaults.integer(forKey: kAppLaunches)
-    }
-
-    private static func incrementLaunches() {
         var launches = userDefaults.integer(forKey: kAppLaunches)
         launches += 1
         set(value: launches, forKey: kAppLaunches)
+        return launches
     }
 
     private static func checkAppCurrentVersion() {
